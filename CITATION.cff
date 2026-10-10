@@ -4,9 +4,17 @@ title: "Two-Axis Computerised Antenna Radiation Pattern Measurement System"
 type: software
 authors:
   - family-names: Leme
-    given-names: Mauro da Silva
+    given-names: Mauro
     orcid: "https://orcid.org/0009-0001-4945-8907"
     affiliation: "Instituto Politécnico de Bragança"
+  - family-names: Coelho
+    given-names: J. A. B.
+    orcid: "https://orcid.org/0009-0004-8278-7579"
+    affiliation: "CeDRI, SusTEC, Instituto Politécnico de Bragança"
+  - family-names: Coelho
+    given-names: João Paulo
+    orcid: "https://orcid.org/0000-0002-7616-1383"
+    affiliation: "Instituto Politécnico de Bragança; CeDRI, SusTEC"
 version: 1.0.0
 date-released: 2026-10-10
 doi: 10.5281/zenodo.23283765

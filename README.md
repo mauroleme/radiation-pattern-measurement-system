@@ -150,7 +150,7 @@ This is the code exactly as it was used for the report. Some things were never f
 
 ## How to cite
 
-> M. S. Leme, *Two-Axis Computerised Antenna Radiation Pattern Measurement System* (software, data and hardware design), v1.0.0, Zenodo, 2026. DOI: [10.5281/zenodo.23283765](https://doi.org/10.5281/zenodo.23283765)
+> M. Leme, J. A. B. Coelho, J. P. Coelho, *Two-Axis Computerised Antenna Radiation Pattern Measurement System* (software, data and hardware design), v1.0.0, Zenodo, 2026. DOI: [10.5281/zenodo.23283765](https://doi.org/10.5281/zenodo.23283765)
 
 GitHub's **"Cite this repository"** button (right-hand sidebar) gives the same reference in APA and BibTeX, from [`CITATION.cff`](CITATION.cff).
 
