@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, data or hardware design, please cite it as below."
+title: "Two-Axis Computerised Antenna Radiation Pattern Measurement System"
+type: software
+authors:
+  - family-names: Leme
+    given-names: Mauro da Silva
+    orcid: "https://orcid.org/0009-0001-4945-8907"
+    affiliation: "Instituto Politécnico de Bragança"
+version: 1.0.0
+date-released: 2026-10-10
+doi: 10.5281/zenodo.23283765
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23283765
+    description: "Concept DOI (always resolves to the latest version)"
+  - type: doi
+    value: 10.5281/zenodo.23283766
+    description: "Version 1.0.0"
+repository-code: "https://github.com/mauroleme/radiation-pattern-measurement-system"
+license: MIT
+keywords:
+  - antenna radiation pattern
+  - antenna measurement
+  - Yagi-Uda
+  - 868 MHz
+  - AD8313
+  - stepper motor
+  - Arduino
+  - MATLAB
+  - engineering education
+abstract: >-
+  Low-cost two-axis computerised system for measuring antenna radiation
+  patterns at 868 MHz, developed as a BSc final project at the Polytechnic
+  Institute of Bragança. Includes the Arduino firmware, MATLAB acquisition
+  (2D and 3D modes) and commissioning tests, raw measurement data, VNA
+  characterisation of the RF chain, CST/NEC simulations and the 3D-printable
+  mechanical design.

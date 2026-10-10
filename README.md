@@ -1,5 +1,7 @@
 # Two-Axis Computerised Antenna Radiation Pattern Measurement System
 
+[![DOI](https://zenodo.org/badge/898913455.svg)](https://doi.org/10.5281/zenodo.23283765)
+
 A low-cost, two-axis rotating platform that measures the radiation pattern of an antenna at **868 MHz** (ISM band). It was built as the final project of the BSc in Electrical and Computer Engineering (LEEC) at the Polytechnic Institute of Bragança (IPB), 2024-2025.
 
 An Arduino Uno drives two NEMA 17 stepper motors. An **AD8313** logarithmic detector reads the received RF power, and MATLAB commands each step and plots the result. The system was validated with a pair of home-made 6-element Yagi-Uda antennas, and the measurements were compared with CST Studio Suite simulations.
@@ -145,6 +147,12 @@ This is the code exactly as it was used for the report. Some things were never f
 - M. S. Leme, J. A. B. Coelho, J. P. Coelho, *"Development of a 2-DoF Antenna Radiation Measurement System"*, SASYR 2025. [Paper](docs/papers/sasyr-2025) · [Poster](docs/papers/sasyr-2025/poster)
 - M. S. Leme, J. A. B. Coelho, J. P. Coelho, *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"*, TEEM 2025 (revised version). [Paper](docs/papers/teem-2025)
 - M. S. Leme, *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"*, LEEC project report, IPB, 2025. Supervisor: Prof. Dr. João Paulo Coelho. [PDF](docs/report/LEEC_project_report_Mauro_Leme.pdf) · [LaTeX source](docs/report/latex)
+
+## How to cite
+
+> M. S. Leme, *Two-Axis Computerised Antenna Radiation Pattern Measurement System* (software, data and hardware design), v1.0.0, Zenodo, 2026. DOI: [10.5281/zenodo.23283765](https://doi.org/10.5281/zenodo.23283765)
+
+GitHub's **"Cite this repository"** button (right-hand sidebar) gives the same reference in APA and BibTeX, from [`CITATION.cff`](CITATION.cff).
 
 ## Acknowledgements
 
