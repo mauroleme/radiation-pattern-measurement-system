@@ -36,7 +36,7 @@ Several S11 measurements of the antennas (`s11best`, `S11bom`, `S11recetora`, `s
 ## First measurement: antenna only, then with the filter
 [`first-measurement_antenna-only-and-with-filter`](first-measurement_antenna-only-and-with-filter)
 
-Ten sweeps **without the filter** (`sem filtro/`) and ten **with the 868 MHz filter** (`com filtro/`), each one plotted, plus the averages. These became **Figs. 4.6 and 4.7** of the report. The exact date was not recorded: the spreadsheet template was created on 2025-05-02 and the files were last edited on 2025-08-17.
+Ten sweeps **without the filter** (`sem filtro/`) and ten **with the 868 MHz filter** (`com filtro/`), each one plotted, plus the averages. These became **Figs. 4.6 and 4.7** of the report. The exact date was not recorded, but it was **early May 2025**: the spreadsheet template was created on 2025-05-02, and `com filtro/media_2025-05-03.xlsx` (found in the MATLAB working folder, last edited 2025-05-03) already holds the with-filter average, within 0.19 dB of the final one. The other files were last edited on 2025-08-17.
 
 ## 2025-07-26: filter + balun, and the matching-PCB characterisation
 [`2025-07-26_filter-balun_pcb-characterisation`](2025-07-26_filter-balun_pcb-characterisation)
