@@ -90,8 +90,10 @@ Yagi-Uda element lengths and positions (from CST; position measured from the dri
 | Folder | Contents |
 |---|---|
 | [`firmware/main`](firmware/main) | Arduino sketch (`main.ino`) and the `Joint` stepper class (`joint.h/.cpp`) |
+| [`firmware/commissioning`](firmware/commissioning) | **Test firmware** for commissioning: reports Hall sensors, step counters and the raw ADC |
 | [`firmware/development`](firmware/development) | Early sketches used to test the AD8313 (April 2025) |
 | [`matlab`](matlab) | **`RadiationPatternMeasurement.m`**: measurement in **2D, 3D-slices or 3D-grid** mode, with a built-in simulator. **`PlotSavedMeasurement.m`**: re-plots saved scans and the lab spreadsheets. The code is in the `+rpm` package |
+| [`matlab/commissioning`](matlab/commissioning) | **Hardware tests T01-T09** (calibration of µsteps/°, backlash, homing repeatability, lost steps vs speed, holding torque, AD8313 calibration, RF stability) with a dated report. [Procedure](matlab/commissioning/PROCEDURE.md) |
 | [`matlab/analysis`](matlab/analysis) | `plot_das_medidas.m`: the original post-processing (HPBW, main-lobe direction, SLL) used for the report |
 | [`matlab/legacy`](matlab/legacy) | `ArduinoCommunication.m`: the original azimuth-only acquisition script |
 | [`matlab/balun`](matlab/balun) | `code_balun.m`: number of turns for the RG-174 choke balun |
@@ -126,12 +128,14 @@ More details in [`matlab/README.md`](matlab/README.md).
 This is the code exactly as it was used for the report. Some things were never finished:
 
 - **During the project the 3D measurement was never completed in software.** The original script used `phi = 0:0` (azimuth only) and the homing of joint 2 was commented out. The report itself notes that its 3D figure (Fig. 4.10) *"shows only the azimuth axis"*. Since October 2026 the new MATLAB code supports the 3D-slices and 3D-grid modes, and the firmware has a `HOME_JOINT2` switch. **These modes have been tested against the simulator but not yet on the platform.**
-- **The AD8313 calibration in the firmware and in the report differ.** The firmware uses `P[dBm] = 0.2722·ADC − 97.115`. The report's least-squares fit (eq. 4.3, `Vout = 0.0185·Pin + 1.8621`) gives about `0.2642·ADC − 100.65` with a 5 V reference. The ~3.5 dB offset shifts the absolute level but not the normalised pattern.
+- **The AD8313 calibration in the firmware and in the report differ.** The firmware uses `P[dBm] = 0.2722·ADC − 97.115`. The report's least-squares fit (eq. 4.3, `Vout = 0.0185·Pin + 1.8621`) gives about `0.2642·ADC − 100.65` with a 5 V reference. The firmware therefore reads **4.6 dB (at −65 dBm) to 6.4 dB (at −5 dBm) high**, and its slope is 3 % steeper, which stretches a 40 dB pattern by about 1.2 dB. Test T08 in [`matlab/commissioning`](matlab/commissioning) recalibrates it.
 - The step-to-degree factors are hard-coded: `joint1` 56 µsteps/degree, `joint2` 16 µsteps/degree.
 
 ### Roadmap
 
 - [x] One MATLAB entry point with 2D / 3D-slices / 3D-grid modes, data saving and a simulator
+- [x] Commissioning tests and test firmware ([procedure](matlab/commissioning/PROCEDURE.md)), dry-run on a simulated rig
+- [ ] Run the commissioning on the platform and carry the calibrations into `firmware/main`
 - [ ] Validate the 3D modes on the platform (joint-2 homing, `elRange`, cable routing)
 - [ ] Single calibration constant shared by firmware and report
 - [ ] A graphical interface (MATLAB App) instead of Command Window output
