@@ -91,8 +91,9 @@ Yagi-Uda element lengths and positions (from CST; position measured from the dri
 |---|---|
 | [`firmware/main`](firmware/main) | Arduino sketch (`main.ino`) and the `Joint` stepper class (`joint.h/.cpp`) |
 | [`firmware/development`](firmware/development) | Early sketches used to test the AD8313 (April 2025) |
-| [`matlab/acquisition`](matlab/acquisition) | `ArduinoCommunication.m`: drives the platform and plots the pattern |
-| [`matlab/analysis`](matlab/analysis) | `plot_das_medidas.m`: polar plot with HPBW, main-lobe direction and side-lobe level |
+| [`matlab`](matlab) | **`RadiationPatternMeasurement.m`**: measurement in **2D, 3D-slices or 3D-grid** mode, with a built-in simulator. **`PlotSavedMeasurement.m`**: re-plots saved scans and the lab spreadsheets. The code is in the `+rpm` package |
+| [`matlab/analysis`](matlab/analysis) | `plot_das_medidas.m`: the original post-processing (HPBW, main-lobe direction, SLL) used for the report |
+| [`matlab/legacy`](matlab/legacy) | `ArduinoCommunication.m`: the original azimuth-only acquisition script |
 | [`matlab/balun`](matlab/balun) | `code_balun.m`: number of turns for the RG-174 choke balun |
 | [`matlab/development`](matlab/development) | First serial test script and data |
 | [`python/deembedding`](python/deembedding) | Removes the coaxial cable from the antenna S11 measurement |
@@ -104,23 +105,34 @@ Yagi-Uda element lengths and positions (from CST; position measured from the dri
 
 ## Running a measurement
 
-1. Flash `firmware/main/main.ino` with the Arduino IDE (the board must be an Arduino Uno).
+1. Flash `firmware/main/main.ino` with the Arduino IDE (the board must be an Arduino Uno). For the 3D modes, set `#define HOME_JOINT2 1` first.
 2. Power the shield with 12 V and connect the AD8313 output to A3.
-3. In MATLAB (with the Instrument Control Toolbox), run `matlab/acquisition/ArduinoCommunication.m`. The script uses the first available COM port.
-4. After the sweep you get a polar plot of the pattern. To get the beamwidth and side-lobe level, put the averaged vector in a variable `media` and run `matlab/analysis/plot_das_medidas.m`.
+3. Open `matlab/RadiationPatternMeasurement.m`, choose `cfg.mode`:
+
+   | Mode | Measures | Time (5° steps) |
+   |---|---|---|
+   | `"2D"` | Azimuth cut (as in the report) | ~6 min |
+   | `"3D-slices"` | Azimuth cut and a 2nd-axis cut through the main lobe; the 3D surface is reconstructed from both | ~9.5 min |
+   | `"3D-grid"` | Axis 2 steps 5° and the azimuth sweep is repeated at every step, so the whole sphere is measured | ~3 h |
+
+   and run it. The scan is saved to `matlab/results/` (`.mat` + `.csv`) and plotted, with HPBW, front-to-back ratio and side-lobe level.
+4. No hardware? Set `cfg.simulate = true`: a software model of the Arduino answers the same protocol.
+5. To plot an old measurement, use `matlab/PlotSavedMeasurement.m`. It reads the saved files and the `measurements/**/average-10_measurements*.xlsx` sheets directly.
+
+More details in [`matlab/README.md`](matlab/README.md).
 
 ## Project status and known issues
 
 This is the code exactly as it was used for the report. Some things were never finished:
 
-- **The 3D (two-axis) measurement was never completed in software.** The firmware already accepts `θ,φ` commands, but in `main.ino` the homing of joint 2 is commented out, and the MATLAB script uses `phi = 0:0` (azimuth only). The script that produced the measured 3D figure in the report (Fig. 4.10, images in [`measurements/2025-08-22_full-system_2d-and-3d`](measurements/2025-08-22_full-system_2d-and-3d)) is not in the project files, and no raw 3D data matrix was kept.
+- **During the project the 3D measurement was never completed in software.** The original script used `phi = 0:0` (azimuth only) and the homing of joint 2 was commented out. The report itself notes that its 3D figure (Fig. 4.10) *"shows only the azimuth axis"*. Since October 2026 the new MATLAB code supports the 3D-slices and 3D-grid modes, and the firmware has a `HOME_JOINT2` switch. **These modes have been tested against the simulator but not yet on the platform.**
 - **The AD8313 calibration in the firmware and in the report differ.** The firmware uses `P[dBm] = 0.2722·ADC − 97.115`. The report's least-squares fit (eq. 4.3, `Vout = 0.0185·Pin + 1.8621`) gives about `0.2642·ADC − 100.65` with a 5 V reference. The ~3.5 dB offset shifts the absolute level but not the normalised pattern.
 - The step-to-degree factors are hard-coded: `joint1` 56 µsteps/degree, `joint2` 16 µsteps/degree.
 
 ### Roadmap
 
-- [ ] One MATLAB entry point with two modes: **2D** (fast azimuth cut) and **3D** (full θ-φ grid, slower)
-- [ ] Finish the joint-2 homing and validate the elevation axis
+- [x] One MATLAB entry point with 2D / 3D-slices / 3D-grid modes, data saving and a simulator
+- [ ] Validate the 3D modes on the platform (joint-2 homing, `elRange`, cable routing)
 - [ ] Single calibration constant shared by firmware and report
 - [ ] A graphical interface (MATLAB App) instead of Command Window output
 
@@ -128,7 +140,7 @@ This is the code exactly as it was used for the report. Some things were never f
 
 - M. S. Leme, J. A. B. Coelho, J. P. Coelho, *"Development of a 2-DoF Antenna Radiation Measurement System"*, SASYR 2025. [Paper](docs/papers/sasyr-2025) · [Poster](docs/papers/sasyr-2025/poster)
 - M. S. Leme, J. A. B. Coelho, J. P. Coelho, *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"*, TEEM 2025 (revised version). [Paper](docs/papers/teem-2025)
-- M. S. Leme, *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"*, LEEC project report, IPB, 2025. Supervisor: Prof. Dr. João Paulo Coelho. [LaTeX source](docs/report/latex)
+- M. S. Leme, *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"*, LEEC project report, IPB, 2025. Supervisor: Prof. Dr. João Paulo Coelho. [PDF](docs/report/LEEC_project_report_Mauro_Leme.pdf) · [LaTeX source](docs/report/latex)
 
 ## Acknowledgements
 

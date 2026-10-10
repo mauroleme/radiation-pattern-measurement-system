@@ -49,6 +49,10 @@
 
 #define RF_PIN      A3
 
+// 1 = home axis 2 on its Hall sensor at start-up (3D modes).
+// 0 = axis 2 is not homed (azimuth-only set-up used in the report).
+#define HOME_JOINT2 0
+
 
 const size_t   SAMPLES      = 100;
 const uint16_t BUFFER_SIZE  = 32;
@@ -135,15 +139,16 @@ void setup()
         while (true);
     }
     
-    // Set M2 to the origin
-    /*
+    // Set M2 to the origin. Needed for the 3D modes; with HOME_JOINT2 = 0
+    // the current position of axis 2 is taken as 0 deg (align it by hand).
+#if HOME_JOINT2
     if (joint2.HomeMotor() == false)
     {
         joint2.DisableMotor();
         log_error("Failed to detect the magnet center of MOTOR 2");
         while (true);
     }
-    */
+#endif
 
     // Signal MATLAB to begin requesting sample data
     Serial.println("Go.");

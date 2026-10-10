@@ -2,7 +2,8 @@
 
 | Folder | Contents |
 |---|---|
-| [`report/latex`](report/latex) | **Final LEEC project report** (English, IPB template `ipb.cls`). Main file `relatorio.tex`, chapters in `chapters/`, the code listed in the appendices in `codes/`, every figure in `Imagens/`. Build: `pdflatex relatorio && bibtex relatorio && pdflatex relatorio && pdflatex relatorio`, or upload the folder to Overleaf |
+| [`report/LEEC_project_report_Mauro_Leme.pdf`](report/LEEC_project_report_Mauro_Leme.pdf) | **Final LEEC project report (PDF, 105 pages)** |
+| [`report/latex`](report/latex) | LaTeX source of the report (English, IPB template `ipb.cls`). Main file `relatorio.tex`, chapters in `chapters/`, the code listed in the appendices in `codes/`, every figure in `Imagens/`. Build: `pdflatex relatorio && bibtex relatorio && pdflatex relatorio && pdflatex relatorio`, or upload the folder to Overleaf |
 | [`proposal`](proposal) | Original project proposal |
 | [`papers/sasyr-2025`](papers/sasyr-2025) | Short paper *"Development of a 2-DoF Antenna Radiation Measurement System"* (Springer LLNCS LaTeX source + PDF) and the conference poster |
 | [`papers/teem-2025`](papers/teem-2025) | Full paper *"Two-Axis Computerised Antenna Radiation Pattern Measurement System"* (revised version) |
