@@ -60,7 +60,7 @@ To stop the coaxial cable from twisting, the azimuth axis sweeps **0 → +180°,
 
 | Part | Notes |
 |---|---|
-| Arduino Uno R3 (ATmega328P) | Controller |
+| Arduino MEGA REV3 (ATmega2560) | Controller |
 | DFRobot dual bipolar stepper shield (DRI0023) with 2× DRV8825 | 1/16 microstepping, 12 V |
 | 2× NEMA 17 (1.8°/step) | Belt and pulley drive (36T / 72T / 126T 3D-printed pulleys) |
 | AD8313 detector module, 0.1-2.5 GHz | ~18 mV/dBm (measured 18.5 mV/dBm) → A3 |
