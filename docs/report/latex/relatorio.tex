@@ -1,0 +1,249 @@
+\documentclass[12pt,a4paper,twoside]{ipb}
+
+% comentar caso seja uma disseração de mestrado
+\usepackage{projei}
+
+\usepackage[english]{babel}
+\graphicspath{{./images/}}
+\usepackage{listings} % incluir listagens
+\usepackage{subcaption}
+\usepackage{url} % typeset URL's
+\usepackage[colorlinks=true,
+                    urlcolor=black, %blue
+                    linkcolor=black,
+                    citecolor=black, %cor das citações
+                    bookmarks=true,
+                    pdfstartview=FitH]{hyperref}
+
+% Pode ser usado biblatex
+\usepackage[style=numeric-comp,sorting=none,backend=biber]{biblatex}
+\addbibresource{lib/refs.bib}
+
+
+
+
+
+\usepackage{lipsum}
+
+\usepackage{tabulary}
+
+\usepackage{float}
+\usepackage{xspace}
+\usepackage{amsmath,amssymb}
+\usepackage{eurosym}
+
+\newcommand{\inlineSubsection}[1]{\vspace{0.5em}\noindent\textbf{#1}}
+
+
+
+%% ------------------------ LISTAGEM ------------------------
+
+\usepackage{color}
+\usepackage{listings}
+\usepackage{courier}
+\lstset{ basicstyle=\scriptsize\ttfamily, % Standardschrift
+         numbers=left,                      % Ort der Zeilennummern
+         numberstyle=\tiny,          % Stil der Zeilennummern
+         stepnumber=1,               % Abstand zwischen den Zeilennummern
+         numbersep=5pt,              % Abstand der Nummern zum Text
+         tabsize=2,                  % Groesse von Tabs
+         extendedchars=true,         %
+         breaklines=true,            % Zeilen werden Umgebrochen
+         keywordstyle=\color{black}\bfseries,         
+         stringstyle=\color{black}\ttfamily, % Farbe der String
+         showspaces=false,           % Leerzeichen anzeigen ?
+         showtabs=false,             % Tabs anzeigen ?
+         xleftmargin=17pt,
+         framexleftmargin=17pt,
+         framexrightmargin=5pt,
+         framexbottommargin=4pt,
+         %backgroundcolor=\color{lightgray},
+         showstringspaces=false,      % Leerzeichen in Strings anzeigen ?
+         frame=bottomline             %hnone|leftline|topline|bottomline|lines|single|shadowboxi
+ }
+
+% --- Adicionar as definições de linguagem aqui ---
+\lstdefinelanguage{Arduino}{
+    language=C++,
+    keywords={void, setup, loop, if, else, while, for, do, break, continue, return,
+              digitalWrite, digitalRead, analogWrite, analogRead,
+              pinMode, delay, Serial, print, println, begin,
+              true, false, HIGH, LOW, INPUT, OUTPUT, int, float, double, char,
+              String, boolean, byte, word, long, unsigned,
+              volatile, const, static, extern, typedef, union, struct, enum,
+              class, public, private, protected, using, namespace, virtual,
+              override, final, friend, auto, decltype, register, sizeof,
+              static_cast, dynamic_cast, reinterpret_cast, const_cast,
+              this, new, delete, throw, try, catch, template, typename,
+              operator, inline, explicit, mutable, thread_local, noexcept,
+              nullptr},
+    morekeywords={LED_BUILTIN, A0, A1, A2, A3, A4, A5, D0, D1, D2, D3, D4, D5, D6, D7,
+                  D8, D9, D10, D11, D12, D13}, % Adicione palavras-chave específicas do Arduino
+    comment=[l]{//},
+    comment=[s]{/*}{*/},
+    string=[b]",
+    string=[b]',
+    sensitive=true,
+}
+
+\lstdefinelanguage{cpp}{
+    language=C++,
+    keywords={void, setup, loop, if, else, while, for, do, break, continue, return,
+              digitalWrite, digitalRead, analogWrite, analogRead,
+              pinMode, delay, Serial, print, println, begin,
+              true, false, HIGH, LOW, INPUT, OUTPUT, int, float, double, char,
+              String, boolean, byte, word, long, unsigned,
+              volatile, const, static, extern, typedef, union, struct, enum,
+              class, public, private, protected, using, namespace, virtual,
+              override, final, friend, auto, decltype, register, sizeof,
+              static_cast, dynamic_cast, reinterpret_cast, const_cast,
+              this, new, delete, throw, try, catch, template, typename,
+              operator, inline, explicit, mutable, thread_local, noexcept,
+              nullptr},
+    morekeywords={LED_BUILTIN, A0, A1, A2, A3, A4, A5, D0, D1, D2, D3, D4, D5, D6, D7,
+                  D8, D9, D10, D11, D12, D13}, % Adicione palavras-chave específicas do C++
+    comment=[l]{//},
+    comment=[s]{/*}{*/},
+    string=[b]",
+    string=[b]',
+    sensitive=true,
+}
+
+\lstdefinelanguage{h}{
+    language=C++,
+    keywords={void, setup, loop, if, else, while, for, do, break, continue, return,
+              digitalWrite, digitalRead, analogWrite, analogRead,
+              pinMode, delay, Serial, print, println, begin,
+              true, false, HIGH, LOW, INPUT, OUTPUT, int, float, double, char,
+              String, boolean, byte, word, long, unsigned,
+              volatile, const, static, extern, typedef, union, struct, enum,
+              class, public, private, protected, using, namespace, virtual,
+              override, final, friend, auto, decltype, register, sizeof,
+              static_cast, dynamic_cast, reinterpret_cast, const_cast,
+              this, new, delete, throw, try, catch, template, typename,
+              operator, inline, explicit, mutable, thread_local, noexcept,
+              nullptr},
+    morekeywords={LED_BUILTIN, A0, A1, A2, A3, A4, A5, D0, D1, D2, D3, D4, D5, D6, D7,
+                  D8, D9, D10, D11, D12, D13}, % Adicione palavras-chave específicas do C++
+    comment=[l]{//},
+    comment=[s]{/*}{*/},
+    string=[b]",
+    string=[b]',
+    sensitive=true,
+}
+
+\lstdefinelanguage{MATLAB}{
+    keywords={break,case,catch,classdef,continue,else,elseif,end,for,...
+              function,global,if,otherwise,parfor,persistent,return,...
+              spmd,switch,try,while},
+    morecomment=[l]%,
+    morestring=[m]',
+    sensitive=true,
+    breaklines=true,
+    moredelim=[il][\color{red}]{$$},
+    moredelim=[is][\color{blue}]{/*}{*/},
+}
+
+
+% ----------- Fim das definições de linguagem -----------
+
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{\colorbox[cmyk]{0.43, 0.35, 0.35,0.01}{\parbox{\textwidth}{\hspace{15pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white, singlelinecheck=false, margin=0pt, font={bf,footnotesize}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Two-Axis Computerised Antenna Radiation Pattern Measurement System}
+
+\author{Mauro da Silva Leme - 52965}
+%\authnum{1}
+
+\supervisor{Professor Doutor João Paulo Coelho}
+
+
+% Para definir o ano letivo
+\courseyear{2024-2025}
+
+% Para nao mostrar a lista de tabelas
+%\tablespagefalse
+
+\makeglossaries
+\loadglsentries{acronym}
+
+
+%http://tex.stackexchange.com/questions/59572/custom-page-numbering-for-appendix
+\usepackage{etoolbox}
+
+
+\begin{document}
+	
+% Coloca a capa, primeira pagina e outros
+
+\beforepreface
+
+%\cleardoublepage
+
+\prefacesection*{Dedication}
+\input{chapters/dedicatoria}
+
+%\cleardoublepage
+
+\prefacesection*{Acknowledgement}
+\input{chapters/agradecimento}
+
+%\cleardoublepage
+
+\prefacesection*{Resumo}
+\input{chapters/resumo}
+
+%\cleardoublepage
+
+\prefacesection*{Abstract}
+\input{chapters/abstract}
+
+% Coloca indices
+\afterpreface
+\cleardoublepage
+%\printglossary[type=\acronymtype,title={Acrónimos}]
+% \printglossary[type=\acronymtype,title={Siglas}]
+
+\bodystart
+
+\pagestyle{plain} % Define o estilo de página como "plain", que centraliza os números das páginas
+
+% Capitulos do documento
+\cleardoublepage
+\input{chapters/cap01}
+\input{chapters/cap02}
+\input{chapters/cap03}
+\input{chapters/cap04}
+\input{chapters/cap05}
+
+%% estilo de referências. outros valores posíveis são 'plain' e 'abbrv' apalike
+%\bibliographystyle{plain}
+%% listagem de referências
+%\bibliography{lib/refs}
+
+%  Caso seja usado biblatex
+\printbibliography
+%
+% Apêndices
+\appendix
+
+%http://tex.stackexchange.com/questions/59572/custom-page-numbering-for-appendix
+\pretocmd{\chapter}{%
+	\clearpage
+	\pagenumbering{arabic}%
+	\renewcommand*{\thepage}{\thechapter\arabic{page}}%
+}{}{}
+
+\input{chapters/apendice01}
+\input{chapters/apendice02}
+\input{chapters/apendice03}
+\input{chapters/apendice04}
+\input{chapters/apendice05}
+
+
+
+\end{document}

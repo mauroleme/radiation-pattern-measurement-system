@@ -1,0 +1,26 @@
+# MATLAB
+*.asv
+*.mex*
+slprj/
+# LaTeX build output
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+# CST working folders (regenerated when the .cst project is opened/solved)
+simulation/cst/*/Result/
+simulation/cst/*/ModelCache/
+simulation/cst/*/Temp/
+# SolidWorks / Office lock files
+~$*
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

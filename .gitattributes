@@ -1,0 +1,12 @@
+*.MP4 filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+# keep measurement/CAD data byte-exact
+*.stl -text
+*.STL -text
+*.s1p -text
+*.s2p -text
+*.dat -text
+*.dpl -text
+*.sch -text
+*.nec -text
+*.csv -text

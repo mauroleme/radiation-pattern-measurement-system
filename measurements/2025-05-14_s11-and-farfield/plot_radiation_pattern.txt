@@ -1,0 +1,131 @@
+clear; clc;
+
+% Automatically detect available COM ports
+availablePorts = serialportlist("available");
+if isempty(availablePorts)
+    error("No available COM ports detected.");
+end
+
+disp("Available COM ports:");
+disp(availablePorts);
+
+% Serial port configuration
+arduinoPort = availablePorts{1};
+baudRate = 115200;
+serialPort = serialport(arduinoPort, baudRate);
+serialPort.Timeout = 120;
+configureTerminator(serialPort, "CR/LF");
+
+% Wait for Arduino to initialize
+waitForArduino(serialPort, "Ready?", ...
+    "Waiting for Arduino Serial Port to initialize...");
+
+% Home the Arduino system
+writeline(serialPort, "Set.");
+waitForArduino(serialPort, "Go.", ...
+    "Waiting for Arduino to finish homing the joints...");
+
+% Measurement and angle setup
+degreeResolution = 5;
+theta = [0:degreeResolution:180, -5:-degreeResolution:-175];    % Full angle vector
+phi = 0:0;                                                      % Only one elevation for now
+measurementValues = zeros(length(theta), length(phi));          % Preallocate results
+
+% Loop -- data acquisition
+disp("Requesting measurements...");
+for motor2Degree = phi
+    for motor1Degree = theta
+        while true
+            try
+                response = safeWriteRead(serialPort, sprintf("%d,%d", motor1Degree, motor2Degree));
+                data = str2double(split(response, ','));
+                if any(isnan(data))
+                    error("Invalid numeric format.");
+                end
+                rowIndex = floor(mod(motor1Degree, 360) / degreeResolution) + 1;
+                colIndex = floor(mod(motor2Degree, 360) / degreeResolution) + 1;
+                measurementValues(rowIndex, colIndex) = mean(data(1:end));
+                break;
+            catch ME
+                fprintf("Error at angles %d,%d: %s. Retrying...\n", ...
+                    motor1Degree, motor2Degree, ME.message);
+                pause(0.1);
+            end
+        end
+    end
+end
+
+clear serialPort;   % Close the COM port
+
+% Organize and process the measurement vectors
+Npos = numel(0:degreeResolution:180);     
+measPos = measurementValues(1:Npos,1);             % Positive angles  (0:5:180)
+measNeg = measurementValues(Npos+1:end,1);         % Negative angles (-5:-5:-175)
+measPosInverted = flipud(measPos);                 % Invert positive values
+
+% Build a full 0-355 deg array (every 5 deg)
+fullAngles = 0:degreeResolution:355;
+fullMeasurements = zeros(size(fullAngles));        % Preallocate
+
+% Place the inverted positive values
+for i = 1:Npos
+    angle = (i-1)*degreeResolution;  % 0, 5, 10,...180
+    idx = angle/degreeResolution + 1;
+    fullMeasurements(idx) = measPosInverted(i);
+end
+% Place the negative values remapped to their equivalent 0-360 position
+negAngles = -5:-degreeResolution:-175;
+for i = 1:length(negAngles)
+    angle = mod(negAngles(i),360);                % e.g., -5 → 355, -175 → 185
+    idx = angle/degreeResolution + 1;
+    fullMeasurements(idx) = measNeg(i);
+end
+
+% Close the circle for polarplot continuity
+fullAnglesClosed = [fullAngles, fullAngles(1)];
+fullMeasurementsClosed = [fullMeasurements; fullMeasurements(1)];
+
+% Rotate the plotted data: +270 deg (so "old" 180° → new 90°)
+fullAnglesRot = mod(fullAnglesClosed + 270, 360);
+
+% Plot the result
+figure;
+polarplot(deg2rad(fullAnglesRot), fullMeasurementsClosed, 'LineWidth', 1.5);
+set(gca, 'ThetaZeroLocation','top','ThetaDir','counterclockwise');
+rlim([-75 0]);
+title('Antenna Radiation Pattern');
+% "xlabel" and "ylabel" don't work (use annotation or text for decoration)
+text(-0.2, -0.9, 'Azimuth', 'Units', 'normalized');
+text(-0.9, -0.2, 'Gain (dB)', 'Units', 'normalized');
+
+disp("Collected measurements:");
+disp(fullMeasurementsClosed(:));
+
+% --- Utility functions --- %
+function response = safeWriteRead(serialPort, message)
+    try
+        if nargin > 1
+            writeline(serialPort, message);
+        end
+        response = readline(serialPort);
+        if startsWith(response, "Error: ")
+            error("Arduino error: %s", extractAfter(response, "Error: "));
+        end
+    catch ME
+        error("Communication error: %s", ME.message);
+    end
+end
+
+function waitForArduino(serialPort, expectedResponse, message)
+    disp(message);
+    while true
+        try
+            response = safeWriteRead(serialPort);
+            if strcmp(response, expectedResponse)
+                break;
+            end
+        catch
+            pause(0.5);
+        end
+    end
+end

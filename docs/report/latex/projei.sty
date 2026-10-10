@@ -1,0 +1,289 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{projei}[2017/06/09 Estilo para relatorio de projeto de EI]
+
+
+%%%%%
+%%%%%   SETUP COMMANDS
+%%%%%
+
+\renewcommand\@course{Engenharia Eletrot\'{e}cnica e de Computadores}
+
+\def\firstreader#1{\gdef\@firstreader{#1}}
+\def\secondreader#1{\gdef\@secondreader{#1}}
+\def\thirdreader#1{\gdef\@thirdreader{#1}}
+
+\newif\ifdisclaimerpage
+\disclaimerpagetrue 
+\newif\ifsignaturepage
+\signaturepagetrue 
+
+
+\def\coverpage{%
+\thispagestyle{empty}%
+
+%\hspace{-4cm}
+\begin{center}
+	\includegraphics[width=0.6\columnwidth, keepaspectratio]{etc/logoh.png}\\
+\end{center}
+
+% \begin{minipage}{5in}
+% 	\parindent=0pt
+% 	\vspace{-10ex}
+% 	\includegraphics[width=0.6\columnwidth, keepaspectratio]{etc/logoh.png}\\
+% \end{minipage}
+
+
+%\null\vskip1in%
+\begin{center}
+	%\vspace{2em}
+	\vspace{10em}
+    %{\Huge\expandafter{\bf \@title}}
+    {\huge\expandafter{\bf \@title}}
+    \vfill
+%    %{\Large
+%	{\large
+		{\bf
+%		\@author \quad \ifdefined\@authnum \@authnum \fi \\
+		\@author \\		
+%		\ifdefined\@secondauthor \@secondauthor\quad \ifdefined\@secauthnum \@secauthnum \fi\fi}}
+		\ifdefined\@secondauthor \@secondauthor \fi}
+%	}	
+    \vfill
+    
+%    \ifdefined\@secondauthor 
+%		{\large {\bf \@author} \\
+%		{\bf \@secondauthor} \\ }
+%	\else
+%		{\large {\bf \@author} \\ }
+%	\fi	     
+%	\vfill
+
+    %\vspace{4em}
+    Trabalho realizado sob a orienta\c{c}\~{a}o de\\
+%    %Relat\'{o}rio Final do Trabalho de Projecto de \@course \hspace{1ex}apresentado \`{a} Escola Superior de Tecnologia e de Gest\~{a}o do Instituto Polit\'{e}cnico de Bragan\c{c}a.\\
+%    %\vspace{4em}
+%    %Trabalho orientado por:\\
+	{\bf \@supervisor}\\
+	\ifdefined\@cosupervisor {\bf \@cosupervisor}\\ \fi
+    \vfill
+    %Bragança\\
+    
+%    \ifdefined\@cosupervisor
+%	    {\bf \@supervisor} \\
+%    	{\bf \@cosupervisor} \\
+%    \else
+%	    {\bf \@supervisor} \\
+%    \fi	     
+%    \vfill
+    
+    Licenciatura em Engenharia Eletrotécnica e de Computadores \\
+    \@courseyear
+\end{center}
+\pagebreak
+\thispagestyle{empty}%
+\cleardoublepage
+}
+
+\def\titlep{%
+\thispagestyle{empty}%
+
+%%\hspace{-4cm}
+%\begin{center}
+%	\includegraphics[width=0.6\columnwidth, keepaspectratio]{etc/logoh.png}\\
+%\end{center}
+
+
+%\null\vskip1in%
+\begin{center}
+	%\vspace{2em}
+	\mbox{}\\  \vspace{10em}
+    %{\Huge\expandafter{\bf \@title}}
+    {\huge\expandafter{\bf \@title}} %\\
+    \vfill
+    %%Trabalho realizado sob a orienta\c{c}\~{a}o de\\
+    %Relat\'{o}rio Final do Trabalho de Projecto de \@course \hspace{1ex}apresentado \`{a} Escola Superior de Tecnologia e de Gest\~{a}o do Instituto Polit\'{e}cnico de Bragan\c{c}a.\\
+    %\vspace{13em}
+    {\bf Relat\'{o}rio da UC de Projeto \\ Licenciatura em \@course \\ Escola Superior de Tecnologia e Gest\~{a}o }\\
+    \vspace{10em}
+    {\bf \@author \\ \ifdefined\@secondauthor \@secondauthor \fi } 
+	\vfill	    
+    \@courseyear
+\end{center}
+
+\newpage
+%\pagebreak
+%\thispagestyle{empty}%
+%\cleardoublepage
+}
+
+
+
+
+\long\def\signature#1{%
+\begin{center} %\begin{flushright}
+	\begin{minipage}{5in}
+		\parindent=0pt
+		Certifico que li este relat\'orio e que, na minha opini\~ao, \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido no \^ambito da UC de Projecto.
+		%I certify that i have read this dissertation and that, in my opinion, is appropriate in content and form as a demonstrator of the developed work.
+		\par
+		\vspace{.5in}
+		%\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
+		\hbox to 5in{\hfil\begin{tabular}{@{}l@{}}\vrule width 3in height
+		    0.4pt depth 0pt\\ #1\end{tabular}}
+	\end{minipage}
+\end{center} %\end{flushright}
+}
+
+\long\def\signatureprof#1{%
+	\begin{center} %\begin{flushright}
+		\begin{minipage}{5in}
+			\parindent=0pt
+			Declaro que revi este relat\'orio, que o trabalho descrito cumpre as condiç\~oes necessárias para ser avaliado e que o relat\'orio \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.
+			%Declaro que li este relat\'orio, que o trabalho descrito cumpre as condiç\~oes necessárias para ser avaliado, e que o relat\'orio \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.
+			%Certifico que o trabalho descrito neste relat\'orio cumpre as condiç\~oes necessárias para ser avaliado, e que este documento \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.
+			%I certify that i have read this dissertation and that, in my opinion, is appropriate in content and form as a demonstrator of the developed work.
+			\par
+			\vspace{.5in}
+			%\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+					0.4pt depth 0pt\\ #1\end{tabular}}
+		\end{minipage}
+	\end{center} %\end{flushright}
+}
+
+\long\def\signatureprofs#1#2{%
+	\begin{center} %\begin{flushright}
+		\begin{minipage}{5in}
+			\parindent=0pt
+			Declaro que revi este relat\'orio, que o trabalho descrito cumpre as condiç\~oes necessárias para ser avaliado e que o relat\'orio \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.			
+			%Declaro que li este relat\'orio, que o trabalho descrito cumpre as condiç\~oes necessárias para ser avaliado, e que o relat\'orio \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.
+			%Certifico que o trabalho descrito neste relat\'orio cumpre as condiç\~oes necessárias para ser avaliado, e que este documento \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.
+			%I certify that i have read this dissertation and that, in my opinion, is appropriate in content and form as a demonstrator of the developed work.
+			\par
+			\vspace{.5in}
+			%\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+					0.4pt depth 0pt\\ #1\end{tabular}}	
+			\vspace{.25in}				
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+		0.4pt depth 0pt\\ #2\end{tabular}}							
+		\end{minipage}
+	\end{center} %\end{flushright}
+}
+
+\long\def\signaturestudent#1{%
+	\begin{center} %\begin{flushright}
+		\begin{minipage}{5in}
+			\parindent=0pt
+			Declaro que o trabalho descrito neste relat\'orio é da minha autoria e é da minha vontade que o mesmo seja submetido a avaliação.			
+			%Declaro que o trabalho descrito neste relat\'orio cumpre as condiç\~oes necessárias para ser avaliado, e que este documento \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.			
+			%I certify that i have read this dissertation and that, in my opinion, is appropriate in content and form as a demonstrator of the developed work.
+			\par
+			\vspace{.5in}
+			%\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+					0.4pt depth 0pt\\ #1\end{tabular}}
+		\end{minipage}
+	\end{center} %\end{flushright}
+}
+
+\long\def\signaturestudents#1#2{%
+	\begin{center} %\begin{flushright}
+		\begin{minipage}{5in}
+			\parindent=0pt
+			Declaro que o trabalho descrito neste relat\'orio é da minha autoria e é da minha vontade que o mesmo seja submetido a avaliação.			
+			%Declaro que o trabalho descrito neste relat\'orio cumpre as condiç\~oes necessárias para ser avaliado, e que este documento \'e adequado no seu conte\'udo e forma como demonstrador do trabalho desenvolvido.			
+			%I certify that i have read this dissertation and that, in my opinion, is appropriate in content and form as a demonstrator of the developed work.
+			\par
+			\vspace{.5in}
+%\hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt\\ #1}}
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+					0.4pt depth 0pt\\ #1\end{tabular}}	
+			\vspace{.25in}				
+			\hbox to 5in{\hfil\begin{tabular}{@{}c@{}}\vrule width 5in height
+					0.4pt depth 0pt\\ #2\end{tabular}}	
+		\end{minipage}
+	\end{center} %\end{flushright}
+}
+
+
+\def\signaturepage{%
+	\thispagestyle{empty}%
+%        \signatureprof{\@supervisor\quad (Orientador)}
+%        \vfill
+%        \ifdefined\@cosupervisor
+%        \signatureprof{\@cosupervisor\quad (Co-orientador)}
+%        \vfill\fi
+
+%        \ifdefined\@cosupervisor
+%			\signatureprofs{\@supervisor\quad (Orientador)}{\@cosupervisor\quad (Co-orientador)}
+%			\vfill
+%		\else
+%	        \signatureprof{\@supervisor\quad (Orientador)}
+%			\vfill
+%		\fi        
+        
+%        \ifdefined\@firstreader
+%        \signature{\@firstreader\quad Arguente}
+%        \vfill\fi
+%        \ifdefined\@secondreader
+%        \signature\@secondreader
+%        \vfill\fi
+%        \ifdefined\@thirdreader
+%        \signature\@thirdreader
+%        \vfill\fi
+%        \ifdefined\@author
+%		\signaturestudent\@author
+%		\vfill\fi
+%        \ifdefined\@secondauthor
+%		\signaturestudent\@secondauthor
+%		\vfill\fi        
+
+		%\vspace{10ex}
+
+		\mbox{}\vspace{33ex}
+
+        \ifdefined\@secondauthor
+			\signaturestudents{\@author}{\@secondauthor}
+			\vfill
+		\else
+			\signaturestudent{\@author}
+			\vfill
+		\fi  				
+%        \begin{flushright}
+%        \begin{minipage}{5in}
+%        Aceite para avaliação da UC de Projecto.\par
+%        %Accepted for assessment of the dissertation in Information Systems.
+%        \vspace{.5in}
+%%        \hbox to 4in{\hfil\shortstack{\vrule width 3in height 0.4pt}}
+%        \end{minipage}
+%        \end{flushright}
+\newpage
+\thispagestyle{empty}
+        }
+
+\def\disclaimerpage{%
+	\thispagestyle{empty}%
+	%\null\vfill
+	\mbox{}\vfill
+	%\begin{flushleft}
+	A Escola Superior de Tecnologia e de Gest\~ao n\~ao se responsabiliza pelas opini\~oes expressas neste relat\'orio.
+	%Escola Superior de Tecnologia e de Gest\~ao is not responsible for the opinions expressed in this document.
+	%\end{flushleft}
+	%\vfill
+	%\cleardoublepage
+	\newpage
+}
+
+
+\def\beforepreface{%
+        \pagenumbering{roman}
+        \pagestyle{plain}
+        \coverpage
+        \titlep
+        \ifdisclaimerpage\disclaimerpage\fi
+        \ifsignaturepage\signaturepage\fi
+        \cleardoublepage
+}
+
+\endinput

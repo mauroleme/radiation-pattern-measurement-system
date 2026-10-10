@@ -1,0 +1,49 @@
+<<<<<<< HEAD
+[2017/09/12 (v2) Como instalar suporte para LaTeX em Windows] 
+
+1- instalar uma distribuição de LaTeX; sugere-se a instalação da distribuição TeX Live:
+
+1.1 descarregar o instalador "install-tl-windows.exe" a partir de "https://www.tug.org/texlive/acquire-netinstall.html"
+(link direto: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-windows.exe)
+1.1.1 executar o instalador e realizar uma instalação completa (full)
+
+1.2 alternativa: descarregar o ISO completo (texlive.iso) a partir de "https://www.tug.org/texlive/acquire-iso.html"
+1.2.1 executar o instalador (install-tl-windows.bat -gui) e realizar uma instalação completa (full)
+=======
+[2017/06/04 Como instalar suporte para LaTeX em Windows]
+
+1- instalar uma distribuição de LaTeX; sugere-se a instalação da distribuição TeX Live:
+
+- descarregar o instalador "install-tl-windows.exe" a partir de "https://www.tug.org/texlive/acquire-netinstall.html"
+(link direto: http://mirror.ctan.org/systems/texlive/tlnet/install-tl-windows.exe)
+
+- executar o instalador e realizar uma instalação completa (full)
+>>>>>>> ac143254a9d4b0e6f8e6c4cdd1bb3e96285ac147
+
+2 - instalar um IDE para LaTeX; recomenda-se o TeXstudio
+
+- descarregar instalador para Windows a partir de http://www.texstudio.org/
+
+- executar o instalador
+
+- arrancar o TeXstudio, que deverá reconhecer o TeX Live já instalado
+
+3 - instalar no TeXstudio o dicionário para correcção ortográfica em português (nota: estas instruções assumem o nome genérico "Username" para a conta em uso no Windows)
+
+- descarregar a última versão do ficheiro "oo3x-pt-PT*.oxt" a partir de "http://natura.di.uminho.pt/download/sources/Dictionaries/openoffice/Pos-AO/"
+
+- renomear o ficheiro "oo3x-pt-PT*.oxt" para "oo3x-pt-PT*.zip" e descomprimi-lo
+
+- copiar o conteúdo da pasta "dictionaries" resultante da descompressão, para a pasta "C:\Users\Username\AppData\Roaming\TeXstudio\dictionaries" (pode-se copiar tudo, mas apenas são relevantes os ficheiros *.dic, *.aff, *.dat e *.idx)
+
+- abrir o TeXstudio, ir ao menu Options / Configure TeXstudio / Language Checking e
+-- em Default Language, escolher pt_PT
+-- em Thesaurus Databse indicar "C:\Users\Username\AppData\Roaming\TeXstudio\dictionaries\th_pt_PT.dat"
+
+4 - no TeXstudio, para compilar o suporte à bibliografia e ao glossário quando se usa o modelo do Projeto de EI, executar
+
+-- Tools / Commands / Biber
+
+-- Tools / Commands / Makeglossaries
+
+

@@ -1,0 +1,45 @@
+reset
+# (se quiser só visualizar na tela, deixe sem terminal/output)
+# set term windows enhanced size 800,800
+
+set datafile separator ','
+
+# --- Polar e ângulos ---
+set polar
+set angles degrees
+set theta top
+unset xtics
+unset ytics
+set ttics 30
+set ttics format "%.0f°"
+
+# --- Escala radial, só com anéis (sem números e sem eixo) ---
+set rrange [0:65]
+set rtics 10 format "" scale 0   # define os anéis, sem rótulos e sem ‘risquinhos’
+unset raxis                      # remove a linha do eixo radial e seus tics
+
+
+# --- Grade ---
+set grid polar 30
+set grid rtics
+set grid back
+
+# --- Aparência / espaçamentos ---
+set size ratio 1
+unset border
+
+# Título e margens (evitam corte no topo)
+set title "Far-field Yagi-Uda Antenna at 868 MHz" offset 0,-0.1   # desce o título
+                                                
+# --- Legenda (caixa no topo à direita) ---
+set key at screen 0.7,0.965   # ligeiro ajuste para longe do título
+set key right top
+set key box opaque
+set key spacing 1.1
+set key width 0
+set key height 0
+set key
+
+# --- Plot ---
+plot "C:/Users/mauro/Desktop/media.csv" using (($0*5+90)):($1+75) \
+     with lines lw 2 lc rgb "blue" title "measured"

@@ -1,0 +1,14 @@
+CM Antena Yagi para 868 MHz - 1 ativo (gap 10 mm), 1 refletor, 3 diretores, latão 65%, raio 1.5 mm
+CE
+GW 1 11 0 -0.0907 0 0 0.0907 0 0.0015    ; Refletor (18,14 cm) em z=0
+GW 2 9 0 -0.078 0.0864 0 -0.005 0.0864 0 0.0015    ; Braço esquerdo do dipolo (7,8 cm) em z=8,64 cm
+GW 3 9 0 0.005 0.0864 0 0.078 0.0864 0 0.0015    ; Braço direito do dipolo (7,8 cm) em z=8,64 cm
+GW 4 11 0 -0.07775 0.1901 0 0.07775 0.1901 0 0.0015 ; Diretor 1 (15,55 cm) em z=19,01 cm
+GW 5 11 0 -0.07605 0.3111 0 0.07605 0.3111 0 0.0015 ; Diretor 2 (15,21 cm) em z=31,11 cm
+GW 6 11 0 -0.0743 0.4321 0 0.0743 0.4321 0 0.0015  ; Diretor 3 (14,86 cm) em z=43,21 cm
+GE 0
+LD 5 0 0 0 1.57E7    ; Condutividade do latão (65% Cu, 35% Zn)
+EK
+EX 0 2 5 0 1 0       ; Excitação no braço esquerdo do dipolo (tag 2, segmento central)
+FR 0 1 0 0 868 0     ; Frequência de 868 MHz
+EN

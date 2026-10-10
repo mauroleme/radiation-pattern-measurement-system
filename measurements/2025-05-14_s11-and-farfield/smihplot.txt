@@ -1,0 +1,76 @@
+reset
+cd "C:/Users/mauro/Desktop"
+
+# -------- arquivo e alvo --------
+s1p = "smith.s1p"       # confirme o nome
+f0  = 868.0             # MHz (ponto "below")
+
+set datafile commentschars "#!"     # Touchstone: ignora '!' e '#'
+
+# -------- ponto abaixo de 868 MHz (faça stats ANTES do parametric) --------
+mhz(x) = x/1e6          # seu arquivo está em Hz
+set autoscale x; set autoscale y
+
+# índice da MAIOR frequência <= f0
+stats s1p using ((mhz($1) <= f0) ? mhz($1) : 1/0) name "L" nooutput
+ib      = L_index_max
+f_below = L_max
+
+# Re/Im nessa linha
+stats s1p using ((int($0)==ib)? $2 : 1/0) name "RG" nooutput
+stats s1p using ((int($0)==ib)? $3 : 1/0) name "IG" nooutput
+g_re = RG_min
+g_im = IG_min
+g_abs = sqrt(g_re*g_re + g_im*g_im)
+
+# -------- estética base --------
+set size ratio -1
+set xrange [-1.1:1.1]; set yrange [-1.1:1.1]
+set xtics -1,0.5,1; set ytics -1,0.5,1
+set xlabel "Re({/Symbol G})"
+set ylabel "Im({/Symbol G})"
+unset key
+
+set multiplot
+
+# ===== camada 1: grade do Smith (paramétrica) =====
+set border 0
+set xzeroaxis lc rgb "gray"; set yzeroaxis lc rgb "gray"
+set object 1 circle at 0,0 size 1 front lw 1.2 lc rgb "gray"
+
+set parametric
+set trange [-pi:pi]
+tv(t,r) = sin(t)/(1+r)
+tu(t,r) = (cos(t)+r)/(1+r)
+cu(t,x) = 1 + cos(t)/x
+cv(t,x) = (1 + sin(t))/x
+set style line 10 lc rgb "#cccccc" lw 0.8 dt 3
+
+plot \
+  cu(t,0.2),cv(t,0.2) ls 10,  cu(t,0.2),-cv(t,0.2) ls 10, \
+  cu(t,0.5),cv(t,0.5) ls 10,  cu(t,0.5),-cv(t,0.5) ls 10, \
+  cu(t,1),  cv(t,1)   ls 10,  cu(t,1),  -cv(t,1)   ls 10, \
+  cu(t,2),  cv(t,2)   ls 10,  cu(t,2),  -cv(t,2)   ls 10, \
+  tu(t,0),  tv(t,0)   ls 10, \
+  tu(t,0.2),tv(t,0.2) ls 10, \
+  tu(t,0.5),tv(t,0.5) ls 10, \
+  tu(t,1),  tv(t,1)   ls 10, \
+  tu(t,2),  tv(t,2)   ls 10
+
+unset parametric
+
+# ===== camada 2: dados + marcador (sem redesenhar eixos) =====
+unset border
+unset xtics; unset ytics
+unset xlabel; unset ylabel
+
+plot \
+  s1p using ($2):($3) w l lw 2 lc rgb "blue" notitle, \
+  '+' using (g_re):(g_im) w p pt 7 ps 1.4 lc rgb "red" notitle
+
+# rótulo (tudo em 1 linha!)
+set label 1 sprintf("f_below = %.3f MHz   {/Symbol G} = %.3f%+.3fi   |{/Symbol G}| = %.3f", f_below, g_re, g_im, g_abs) \
+          at graph 0.03,0.06 tc rgb "red"
+replot
+
+unset multiplot
